@@ -25,7 +25,7 @@ namespace Upnp.Ssdp
                    from port in ports
                    let ip = ua.Address
                    //TODO: remove the ipv4 check
-                   where !IPAddress.IsLoopback(ip) && ip.AddressFamily == AddressFamily.InterNetwork
+                   where ni.OperationalStatus == OperationalStatus.Up && !IPAddress.IsLoopback(ip) && ip.AddressFamily == AddressFamily.InterNetwork
                    let uri = new UriBuilder { Scheme = "http", Host = ip.ToString(), Path = locationPath }.Uri
                    let ep = new IPEndPoint(ip, port)
                    select (ISsdpSocket) new SsdpSocket(ep, uri);
